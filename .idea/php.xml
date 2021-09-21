@@ -115,6 +115,7 @@
       <path value="$PROJECT_DIR$/blog/vendor/league/mime-type-detection" />
       <path value="$PROJECT_DIR$/blog/vendor/league/flysystem" />
       <path value="$PROJECT_DIR$/blog/vendor/league/config" />
+      <path value="$PROJECT_DIR$/blog/vendor/laravelcollective/html" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

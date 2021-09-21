@@ -7,7 +7,19 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/css/admin.css">
-
+    <style>
+        table.table form
+        {
+            display: inline-block;
+        }
+        button.delete
+        {
+            background: transparent;
+            border: none;
+            color: #337ab7;
+            padding: 0px;
+        }
+    </style>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -120,7 +132,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs">Юлія Княжук</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -179,8 +191,8 @@
                     <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Alexander Pierce</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                    <p>Юлія Княжук</p>
+                    <a href="#"></i> Online</a>
                 </div>
             </div>
             <!-- search form -->
@@ -425,6 +437,7 @@
             <!-- /.tab-pane -->
         </div>
     </aside>
+
     <!-- /.control-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
