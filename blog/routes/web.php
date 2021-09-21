@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/admin' , 'App\Http\Controllers\Admin\DashboardController@index');
 Route::resource('/admin/categories' , 'App\Http\Controllers\Admin\CategoriesController');
+Route::resource('/admin/tags' , 'App\Http\Controllers\Admin\TagsController');
