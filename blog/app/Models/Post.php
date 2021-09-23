@@ -13,16 +13,16 @@ class Post extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'date'];
 
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function author()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function tags()
@@ -44,11 +44,11 @@ class Post extends Model
         ];
     }
 
-    public function add($fields)
+    public static function add($fields)
     {
         $post = new static;
         $post->fill($fields);
-        $post->user_id = 1;
+        $post->user_id = 0;
         $post->save();
 
         return $post;
@@ -60,42 +60,50 @@ class Post extends Model
         $this->save();
     }
 
-    public function remove($fields)
+    public function remove()
     {
+        $this->removeImage();
         $this->delete();
+
+    }
+
+    public function removeImage()
+    {
+        if ($this->image != null) {
+            Storage::delete('uploads/' . $this->image);
+        }
 
     }
 
     public function uploadImage($image)
     {
-        if($image == null){ return; }
+        if ($image == null) {return;}
 
-        Storage::delete('uploads/' . $this->image);
-        $filename = Str::random(10) . ' . ' .  $image->extension();
-        $image->saveAs('uploads', '$filename');
+        $this->removeImage();
+        $filename = Str::random(10) . ' . ' . $image->extension();
+        $image->storeAs('uploads', '$filename');
         $this->image = $filename;
         $this->save();
     }
 
     public function getImage()
     {
-        if($this->image == null)
-        {
-            return '/img/no-image.png';
+        if ($this->image == null) {
+            return '/img/default-50x50.gif';
         }
         return '/uploads/' . $this->image;
     }
 
-    public  function setCategory($id)
+    public function setCategory($id)
     {
-        if($id == null) {return;}
+        if ($id == null) {return;}
         $this->category_id = $id;
         $this->save();
     }
 
     public function setTags($ids)
     {
-        if($ids == null){return;}
+        if ($ids == null) {return;}
 
         $this->tags()->sync($ids);
     }
@@ -115,8 +123,7 @@ class Post extends Model
 
     public function toggleStatus($value)
     {
-        if($value == null)
-        {
+        if ($value == null) {
             return $this->setDraft();
         }
         return $this->setPublic();
@@ -136,12 +143,22 @@ class Post extends Model
 
     public function toggleFeatured($value)
     {
-        if($value == null)
-        {
+        if ($value == null) {
             return $this->setStandart();
         }
         return $this->setFeatured();
     }
 
+    public function getCategoryTitle()
+    {
+        return ($this->category != null)
+            ?   $this->category->title
+            :   'Нет категории';
+    }
+
+    public function getTagsTitle()
+    {
+      dd($this->tags);
+    }
 }
 
