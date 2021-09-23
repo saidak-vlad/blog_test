@@ -18,7 +18,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('admin.posts.index', ['posts' => $posts]);
+        return view('admin.posts.index', ['posts'=>$posts]);
     }
 
     /**
@@ -28,12 +28,14 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('title','id')->all();
-        $tags = Tag::pluck( 'title','id')->all();
+        $categories = Category::pluck('title', 'id')->all();
+        $tags = Tag::pluck('title', 'id')->all();
+
         return view('admin.posts.create', compact(
             'categories',
             'tags'
         ));
+
     }
 
     /**
@@ -82,7 +84,14 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        $categories = Category::pluck('title', 'id')->all();
+        $tags = Tag::pluck('title', 'id')->all();
+
+        return view('admin.posts.edit', compact(
+            'categories',
+            'tags'
+        ));
     }
 
     /**

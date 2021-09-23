@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,14 +23,19 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function tags()
     {
         return $this->belongsToMany(
             Tag::class,
-            'post_tag',
+            'post_tags',
             'post_id',
             'tag_id'
         );
@@ -64,35 +70,38 @@ class Post extends Model
     {
         $this->removeImage();
         $this->delete();
-
     }
 
     public function removeImage()
     {
-        if ($this->image != null) {
+        if($this->image != null)
+        {
             Storage::delete('uploads/' . $this->image);
         }
-
     }
 
     public function uploadImage($image)
     {
-        if ($image == null) {return;}
+        if($image == null) { return; }
 
         $this->removeImage();
-        $filename = Str::random(10) . ' . ' . $image->extension();
-        $image->storeAs('uploads', '$filename');
+        $filename = Str::random(10) . '.' . $image->extension();
+        $image->storeAs('uploads', $filename);
         $this->image = $filename;
         $this->save();
     }
 
     public function getImage()
     {
-        if ($this->image == null) {
-            return '/img/default-50x50.gif';
+        if($this->image == null)
+        {
+            return '/img/default-50x50.gif.png';
         }
+
         return '/uploads/' . $this->image;
+
     }
+
 
     public function setCategory($id)
     {
@@ -156,9 +165,12 @@ class Post extends Model
             :   'Нет категории';
     }
 
-    public function getTagsTitle()
+    public function getTagsTitles()
     {
-      dd($this->tags);
+        return (!$this->tags->isEmpty())
+            ?   implode(', ', $this->tags->pluck('title')->all())
+            : 'Нет тегов';
     }
+
 }
 
