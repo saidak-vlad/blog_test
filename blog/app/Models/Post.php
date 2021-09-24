@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -140,7 +141,7 @@ class Post extends Model
 
     public function setFeatured()
     {
-        $this->status = 1;
+        $this->is_featured = 1;
         $this->save();
     }
 
@@ -172,5 +173,12 @@ class Post extends Model
             : 'Нет тегов';
     }
 
+    public function getDateAttribute($value)
+    {
+     $date = Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
+     return $date;
+    }
+
 }
+
 

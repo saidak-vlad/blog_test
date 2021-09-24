@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use function React\Promise\all;
 
 class PostsController extends Controller
 {
@@ -87,10 +88,13 @@ class PostsController extends Controller
         $post = Post::find($id);
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
+        $selectedTags = $post->tags->pluck('id')->all();
 
         return view('admin.posts.edit', compact(
             'categories',
-            'tags'
+            'tags',
+                     'post',
+             'selectedTags'
         ));
     }
 
@@ -103,7 +107,23 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' =>'required',
+            'content' => 'required',
+            'date'  =>  'required',
+            'image' =>  'nullable|image'
+        ]);
+
+        $post = Post::find($id);
+        $post->edit($request->all());
+        $post->uploadImage($request->file('image'));
+        $post->setCategory($request->get('category_id'));
+        $post->setTags($request->get('tags'));
+        $post->toggleStatus($request->get('status'));
+        $post->toggleFeatured($request->get('is_featured'));
+
+        return redirect()->route('posts.index');
+
     }
 
     /**
@@ -114,6 +134,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+Post::find($id)->remove();
+return redirect()->route('posts.index');
     }
 }
