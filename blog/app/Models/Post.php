@@ -211,6 +211,11 @@ class Post extends Model
         $postID = $this->hasNext();
         return self::find($postID);
     }
+
+    public function hasCategory()
+    {
+        return $this->category != null ? true : false;
+    }
 }
 
 
