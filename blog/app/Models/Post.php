@@ -16,7 +16,7 @@ class Post extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = ['title', 'content', 'date'];
+    protected $fillable = ['title', 'content', 'date', 'description'];
 
     public function category()
     {
@@ -180,6 +180,37 @@ class Post extends Model
      return $date;
     }
 
+    public function getCategoryID()
+    {
+        return $this->category != null ? $this->category->id : null;
+    }
+
+    public function getDate()
+    {
+       return Carbon::createFromFormat('d/m/y', $this->date)->format('F d, Y');
+    }
+
+    public function hasPrevious()
+    {
+        return self::where('id', '<', $this->id)->max('id');
+    }
+
+    public function getPrevious()
+    {
+        $postID = $this->hasPrevious();
+        return self::find($postID);
+    }
+
+    public function hasNext()
+    {
+       return self::where('id', '>', $this->id)->min('id');
+    }
+
+    public function getNext()
+    {
+        $postID = $this->hasNext();
+        return self::find($postID);
+    }
 }
 
 

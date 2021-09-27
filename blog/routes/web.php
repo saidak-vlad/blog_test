@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
-
+Route::get('/post/{slug}', 'App\Http\Controllers\HomeController@show')->name('post.show');
 
 Route::get('/admin' , 'App\Http\Controllers\Admin\DashboardController@index');
 Route::resource('/admin/categories' , 'App\Http\Controllers\Admin\CategoriesController');

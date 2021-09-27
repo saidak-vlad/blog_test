@@ -8,9 +8,9 @@
                     @foreach($posts as $post)
                         <article class="post">
                             <div class="post-thumb">
-                                <a href="blog.html"><img src="{{$post->getImage()}}" alt=""></a>
+                                <a href="{{route('post.show', $post->slug )}}"><img src="{{$post->getImage()}}" alt=""></a>
 
-                                <a href="blog.html" class="post-thumb-overlay text-center">
+                                <a href="{{route('post.show', $post->slug )}}" class="post-thumb-overlay text-center">
                                     <div class="text-uppercase text-center">View Post</div>
                                 </a>
                             </div>
@@ -18,24 +18,19 @@
                                 <header class="entry-header text-center text-uppercase">
                                     <h6><a href="#"> {{$post->category->title}}</a></h6>
 
-                                    <h1 class="entry-title"><a href="blog.html">{{$post->title}}</a></h1>
+                                    <h1 class="entry-title"><a href="{{route('post.show', $post->slug )}}">{{$post->title}}</a></h1>
 
 
                                 </header>
                                 <div class="entry-content">
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                                        tevidulabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                                        justo duo dolores rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                                        ipsum dolor sit am Lorem ipsum dolor sitconsetetur sadipscing elitr, sed diam nonumy
-                                        eirmod tempor invidunt ut labore et dolore maliquyam erat, sed diam voluptua.
-                                    </p>
+                                    {{$post->description}}
 
                                     <div class="btn-continue-reading text-center text-uppercase">
-                                        <a href="blog.html" class="more-link">Continue Reading</a>
+                                        <a href="{{route('post.show', $post->slug )}}" class="more-link">Continue Reading</a>
                                     </div>
                                 </div>
                                 <div class="social-share">
-                                    <span class="social-share-title pull-left text-capitalize">By <a href="#">Rubel</a> On February 12, 2016</span>
+                                    <span class="social-share-title pull-left text-capitalize">By <a href="#">Rubel</a> On {{$post->getDate()}}</span>
                                     <ul class="text-center pull-right">
                                         <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                                         <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -48,14 +43,7 @@
                         </article>
                     @endforeach
 
-
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                    </ul>
+                        {{$posts->links()}}
                 </div>
                 <div class="col-md-4" data-sticky_column>
                     <div class="primary-sidebar">
