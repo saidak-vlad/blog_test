@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
+    use HasFactory;
     use Sluggable;
 
     protected $fillable = ['title', 'content', 'date'];
