@@ -71,6 +71,15 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function generatePassword($password)
+    {
+        if($password != null)
+        {
+            $this->password = bcrypt($password);
+            $this->save();
+        }
+    }
+
     public function remove()
     {
         Storage::delete('uploads/' . $this->image);
