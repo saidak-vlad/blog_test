@@ -12,20 +12,24 @@
                             {{session('status')}}
                         @endif
                         <h3 class="text-uppercase">Login</h3>
-                        @include('admin.errors')
+
                         <br>
                         <form class="form-horizontal contact-form" role="form" method="post" action="/login">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" id="email" name="email"
-                                           placeholder="Email" value="{{old('email')}}">
+                                    <input type="text" class="form-control @error('name') border border-danger @enderror" id="email" name="email " placeholder="Email" value="{{old('email')}}">
+                                    @error('email')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="password" class="form-control" id="password" name="password"
-                                           placeholder="password">
+                                    <input type="password" class="form-control @error('password') border border-danger @enderror" id="password" name="password" placeholder="password">
+                                    @error('password')
+                                    <p class="text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <button type="submit" class="btn send-btn">Login</button>

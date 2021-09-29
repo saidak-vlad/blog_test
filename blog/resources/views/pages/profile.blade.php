@@ -8,44 +8,40 @@
                 <div class="col-md-8">
 
                     <div class="leave-comment mr0"><!--leave comment-->
-
-                        <h3 class="text-uppercase">Register</h3>
-
+                        @if(session('status'))
+                        {{session('status')}}
+                        @endif
+                        <h3 class="text-uppercase">My profile</h3>
+                        @include('admin.errors')
                         <br>
-                        <form class="form-horizontal contact-form" role="form" method="post" action="/register">
+                        <img src="{{$user->getImage()}}" alt="" class="profile-image">
+                        <form class="form-horizontal contact-form" role="form" method="post" action="/profile" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control " id="name" name="name"
-                                           placeholder="name" value="{{old('name')}}">
-                                    @error('name')
-                                    <p class="text-danger">{{$message}}</p>
-                                    @enderror
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="Name" value="{{$user->name}}">
                                 </div>
-
-
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control " id="email" name="email"
-                                           placeholder="Email" value="{{old('email')}}">
-                                    @error('email')
-                                    <p class="text-danger">{{$message}}</p>
-                                    @enderror
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           placeholder="Email" value="{{$user->email}}">
                                 </div>
-
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <input type="password" class="form-control" id="password" name="password"
                                            placeholder="password">
-                                    @error('password')
-                                    <p class="text-danger">{{$message}}</p>
-                                    @enderror
                                 </div>
-
                             </div>
-                            <button type="submit"  class="btn send-btn">Register</button>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="file" class="form-control" id="image" name="avatar">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn send-btn">Update</button>
 
                         </form>
                     </div><!--end leave comment-->
@@ -55,5 +51,4 @@
         </div>
     </div>
     <!-- end main content-->
-
 @endsection

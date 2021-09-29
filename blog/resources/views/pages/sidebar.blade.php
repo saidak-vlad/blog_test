@@ -1,16 +1,7 @@
 <div class="col-md-4" data-sticky_column>
     <div class="primary-sidebar">
 
-        <aside class="widget news-letter">
-            <h3 class="widget-title text-uppercase text-center">Get Newsletter</h3>
 
-            <form action="#">
-                <input type="email" placeholder="Your email address">
-                <input type="submit" value="Subscribe Now"
-                       class="text-uppercase text-center btn btn-subscribe">
-            </form>
-
-        </aside>
         <aside class="widget">
             <h3 class="widget-title text-uppercase text-center">Popular Posts</h3>
             @foreach($popularPosts as $post)

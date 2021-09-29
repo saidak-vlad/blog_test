@@ -22,7 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+
     ];
 
     /**
@@ -82,29 +82,42 @@ class User extends Authenticatable
 
     public function remove()
     {
-        Storage::delete('uploads/' . $this->image);
+        $this->removeAvatar();
         $this->delete();
     }
 
     public function uploadAvatar($image)
     {
-        if($image == null){ return; }
+        if($image == null) { return; }
 
-        Storage::delete('uploads/' . $this->image);
-        $filename = Str::random(10) . ' . ' .  $image->extension();
-        $image->saveAs('uploads', '$filename');
-        $this->image = $filename;
+        $this->removeAvatar();
+
+        $filename = Str::random(10) . '.' . $image->extension();
+        $image->storeAs('uploads', $filename);
+        $this->avatar = $filename;
         $this->save();
+    }
+
+
+
+    public function removeAvatar()
+    {
+        if($this->avatar != null)
+        {
+            Storage::delete('uploads/' . $this->avatar);
+        }
     }
 
     public function getImage()
     {
-        if($this->image == null)
+        if($this->avatar == null)
         {
-            return '/img/no-user-image.png';
+            return '/img/no-image.png';
         }
-        return '/uploads/' . $this->image;
+
+        return '/uploads/' . $this->avatar;
     }
+
 
     public function makeAdmin()
     {

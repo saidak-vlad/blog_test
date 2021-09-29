@@ -25,7 +25,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id');
+    	return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()
@@ -215,6 +215,11 @@ class Post extends Model
     public function hasCategory()
     {
         return $this->category != null ? true : false;
+    }
+
+    public function getComments()
+    {
+        return $this->comments()->where('status',1)->get();
     }
 }
 

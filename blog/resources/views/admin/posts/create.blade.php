@@ -21,13 +21,16 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Добавляем статью</h3>
-                    @include('admin.errors')
+
                 </div>
                 <div class="box-body">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Название</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="title" value="{{old('title')}}">
+                            @error('title')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <div class="form-group">
@@ -61,6 +64,9 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right" id="datepicker" name="date" value="{{old('date')}}">
+                                @error('date')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -89,12 +95,18 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Описание</label>
                             <textarea name="description" id="" cols="30" rows="10" class="form-control" >{{old('description')}}</textarea>
+                            @error('description')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Полный текст</label>
                             <textarea name="content" id="" cols="30" rows="10" class="form-control" ></textarea>
+                            @error('content')
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
