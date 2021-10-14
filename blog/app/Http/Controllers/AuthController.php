@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    private const VALIDATION_RULES = [
+        'email' => 'required|email',
+        'password' => 'required'
+    ];
+
     public function registerForm()
     {
         return view('pages.register');
@@ -33,10 +38,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $this->validate($request, );
 
         if (Auth::attempt([
             'email' => $request->get('email'),
@@ -55,10 +57,7 @@ class AuthController extends Controller
 
     public function loginAdmin(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $this->validate($request, self::VALIDATION_RULES);
         if (Auth::attempt([
             'email' => $request->get('email'),
             'password' => $request->get('password')
