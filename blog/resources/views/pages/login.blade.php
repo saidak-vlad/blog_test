@@ -14,11 +14,11 @@
                         <h3 class="text-uppercase">Login</h3>
 
                         <br>
-                        <form class="form-horizontal contact-form" role="form" method="post" action="/login">
+                        <form class="form-horizontal contact-form" role="form" method="post" action="login">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control @error('name') border border-danger @enderror" id="email" name="email " placeholder="Email" value="{{old('email')}}">
+                                    <input type="text" class="form-control @error('name') border border-danger @enderror" id="email" name="email" placeholder="Email" value="{{old('email')}}">
                                     @error('email')
                                     <p class="text-danger">{{$message}}</p>
                                     @enderror
